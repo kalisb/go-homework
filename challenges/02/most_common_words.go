@@ -7,8 +7,7 @@ import (
 
 func getMostCommonWords(text string, wordCountLimit int) []string {
 
-	result := make([]string, 0)
-	result = append(result, getResult(strings.Split(strings.ToLower(text), " "), wordCountLimit)...)
+	result := getResult(strings.Split(strings.ToLower(text), " "), wordCountLimit)
 	sort.Strings(result)
 	return result
 }
@@ -16,7 +15,7 @@ func getMostCommonWords(text string, wordCountLimit int) []string {
 func getResult(text []string, count int) []string {
 	result := make([]string, 0)
 	mapCount := getCount(text)
-	for  key, value := range mapCount {
+	for key, value := range mapCount {
 		if value >= count {
 			result = append(result, key)
 		}
