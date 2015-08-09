@@ -1,15 +1,15 @@
 package main
 
-func Map(data []string, mapper func(string) string) []string {
-	result := make([]string, 0)
-	for _, value := range data {
-		result = append(result, mapper(value))
+func Map(data []string, mapper func(string) string) (result []string) {
+	result = make([]string, len(data))
+	for i, value := range data {
+		result[i] = mapper(value)
 	}
-	return result
+	return
 }
 
-func Filter(data []string, predicate func(string) bool) []string {
-	result := make([]string, 0)
+func Filter(data []string, predicate func(string) bool) (result []string) {
+	result = make([]string, 0, len(data))
 	for _, value := range data {
 		if predicate(value) {
 			result = append(result, value)
@@ -18,12 +18,14 @@ func Filter(data []string, predicate func(string) bool) []string {
 	return result
 }
 
-func Reduce(data []string, combinator func(string, string) string) string {
-	var result string
+func Reduce(data []string, combinator func(string, string) string) (result string) {
+	if len(data) == 1 {
+		return data[0]
+	}
 	for _, value := range data {
 		result = combinator(result, value)
 	}
-	return result
+	return
 }
 
 func Any(data []string, predicate func(string) bool) bool {
